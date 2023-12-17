@@ -63,9 +63,7 @@
 </head>
 <body>
 
-<button id="new-game" class="modern-button" onclick="goToNewGame
-
-()">New Game</button>
+<button id="new-game" class="modern-button" onclick="goToNewGame()">New Game</button>
 <button id="saved-games" class="modern-button" onclick="goToSavedGames()">Saved Games</button>
 
 <div class="ads-container">
@@ -76,7 +74,16 @@
     </div>
 </div>
 <script>
+    // Sayfa yüklendiğinde kontrol et ve varsa yönlendir
+    if (document.cookie.indexOf("newGameClicked=true") !== -1) {
+        window.location.href = 'newGame.html';
+    }
+
     function goToNewGame() {
+        // Yönlendirme yapıldıktan sonra bir cookie oluştur
+        document.cookie = "newGameClicked=true; expires=Fri, 31 Dec 9999 23:59:59 GMT; path=/";
+
+        // Yönlendirme yap
         window.location.href = "newGame.html";
     }
 
@@ -86,4 +93,3 @@
 </script>
 </body>
 </html>
-```
