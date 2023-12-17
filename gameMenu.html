@@ -22,6 +22,7 @@
             padding: 0;
             font-family: 'Montserrat', sans-serif;
             color: #ffffff;
+            transition: background-color 1s ease; /* Sayfa karartma animasyonu */
         }
 
         /* Üst Çubuk Stilleri */
@@ -75,6 +76,46 @@
             width: 80%; /* Genişlik yüzde olarak ayarlandı */
             box-sizing: border-box; /* Padding ve border'ı dahil etmek için */
         }
+
+        /* Sayfa karartma */
+        .darken-page {
+            background-color: rgba(0, 0, 0, 0.7);
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 2000;
+            display: none;
+        }
+
+        /* Karartma animasyonu */
+        .darken-page.show {
+            display: block;
+        }
+
+        /* Pop-up penceresi */
+        .popup {
+            background-color: #ffffff;
+            padding: 20px;
+            border-radius: 10px;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            z-index: 3000;
+            display: none;
+        }
+
+        /* Kapatma butonu */
+        .close-button {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            cursor: pointer;
+            font-size: 18px;
+            color: #000000;
+        }
     </style>
 </head>
 <body>
@@ -95,6 +136,15 @@
     </div>
 </div>
 
+<!-- Karartma katmanı -->
+<div class="darken-page" id="darkenPage"></div>
+
+<!-- Pop-up penceresi -->
+<div class="popup" id="popup">
+    <span class="close-button" onclick="closePopup()">x</span>
+    <p>eat or die</p>
+</div>
+
 <!-- Easy Butonu -->
 <button class="difficulty-button" onclick="selectDifficulty('Business')">Business Growth</button>
 
@@ -112,6 +162,8 @@
     // Sayfa yüklendiğinde kontrol et ve varsa kayıtlı verileri yükle
     window.onload = function () {
         loadUserData();
+        startDecreaseMoney();
+        startPopup();
     };
 
     // Kullanıcı verilerini yükle
@@ -146,24 +198,70 @@
         updateHealthAndHunger();
     }, 60000); // 60 saniye (1 dakika)
 
-    // Sağlık ve açlık değerlerini güncelle
-    function updateHealthAndHunger() {
-        let healthValue = parseInt(document.getElementById('health').innerText);
+    // Her 5 dakikada bir para miktarını azaltan fonksiyon
+    function startDecreaseMoney() {
+        setInterval(function () {
+            decreaseMoney();
+        }, 300000); // 300 saniye (5 dakika)
+    }
+
+    // Para miktarını azalt
+    function decreaseMoney() {
+        let moneyValue = parseInt(document.getElementById('money').innerText);
+
+        // Her 5 dakikada bir 10 dolar eksilt
+        moneyValue -= 10;
+
+        // Veriyi güncelle
+        document.getElementById('money').innerText = moneyValue < 0 ? '0' : moneyValue;
+
+        // Veriyi yerel depolamada güncelle
+        localStorage.setItem('money', moneyValue < 0 ? '0' : moneyValue);
+    }
+
+    // Açlık kontrolü ve pop-up başlatma
+    function startPopup() {
+        setInterval(function () {
+            checkHunger();
+        }, 30000); // 30 saniye
+
+        setInterval(function () {
+            showPopup();
+        }, 60000); // 60 saniye (1 dakika)
+    }
+
+    // Açlık kontrolü
+    function checkHunger() {
         let hungerValue = parseInt(document.getElementById('hunger').innerText);
 
-        // Her 1 dakikada %2 sağlık azalt
-        healthValue -= 2;
+        // Açlık değeri %0 olduğunda her 30 saniyede %5 sağlık azalt
+        if (hungerValue <= 0) {
+            decreaseHealth();
+        }
+    }
 
-        // Her 1 dakikada %5 açlık azalt
-        hungerValue -= 5;
+    // Sağlık azalt
+    function decreaseHealth() {
+        let healthValue = parseInt(document.getElementById('health').innerText);
 
-        // Verileri güncelle
+        // Her 30 saniyede %5 sağlık azalt
+        healthValue -= 5;
+
+        // Veriyi güncelle
         document.getElementById('health').innerText = healthValue < 0 ? '0' : healthValue;
-        document.getElementById('hunger').innerText = hungerValue < 0 ? '0' : hungerValue;
 
-        // Verileri yerel depolamada güncelle
+        // Veriyi yerel depolamada güncelle
         localStorage.setItem('health', healthValue < 0 ? '0' : healthValue);
-        localStorage.setItem('hunger', hungerValue < 0 ? '0' : hungerValue);
+    }
+
+    // Pop-up gösterme
+    function showPopup() {
+        document.getElementById('popup').style.display = 'block';
+    }
+
+    // Pop-up kapatma
+    function closePopup() {
+        document.getElementById('popup').style.display = 'none';
     }
 </script>
 </body>
