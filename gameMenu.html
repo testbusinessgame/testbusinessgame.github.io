@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>New Game</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700&display=swap">
+    <style>
+        /* Genel Stiller */
+        body {
+            background-image: url('backgroundMenu.png');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+            display: flex;
+            flex-direction: column; /* Butonları dikey olarak sırala */
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            margin: 0;
+            padding: 0;
+            font-family: 'Montserrat', sans-serif;
+            color: #ffffff;
+        }
+
+        /* Üst Çubuk Stilleri */
+        .status-bar {
+            background-color: #ffffff90; /* Çubuk rengi */
+            width: 100%;
+            padding: 5px 0;
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            position: fixed;
+            top: 12%; /* Sayfanın yüzde 50'si kadar yükseklikte */
+            left: 0%; /* Sayfanın yüzde 50'si kadar genişlikte */
+            z-index: 1000; /* İçeriğin üzerinde olması için z-index değeri */
+        }
+
+        /* Para, Sağlık, Açlık İkonları */
+        .status-icon {
+            margin-right: 5px;
+            font-size: 15px;
+        }
+
+        /* Kalın Font */
+        .bold-text {
+            font-weight: bold;
+        }
+
+        /* Buton Stilleri */
+        .difficulty-button {
+            background-color: #ffffff; /* Buton rengi */
+            color: #000000; /* Yazı rengi */
+            padding: 15px 30px; /* Buton içi boşluk */
+            border: none; /* Kenarlık yok */
+            border-radius: 10px; /* Köşe yumuşatma */
+            font-size: 16px; /* Yazı boyutu */
+            cursor: pointer; /* İmleç tipi */
+            transition: background-color 0.3s ease; /* Animasyonlu geçiş */
+            margin-top: 20px;
+            width: 70%; /* Genişlik yüzde olarak ayarlandı */
+            box-sizing: border-box; /* Padding ve border'ı dahil etmek için */
+        }
+
+        .difficulty-button:hover {
+            background-color: #004627; /* Hover durumunda buton rengi */
+        }
+
+        /* Açıklama Kutuları */
+        .description {
+            margin-top: 10px;
+            font-size: 15px;
+            width: 80%; /* Genişlik yüzde olarak ayarlandı */
+            box-sizing: border-box; /* Padding ve border'ı dahil etmek için */
+        }
+    </style>
+</head>
+<body>
+
+<!-- Üst Çubuk -->
+<div class="status-bar">
+    <div class="status-item">
+        <span class="status-icon">💵</span>
+        <span class="bold-text">Para:</span> $192.000
+    </div>
+    <div class="status-item">
+        <span class="status-icon">❤️</span>
+        <span class="bold-text">Sağlık:</span> %87
+    </div>
+    <div class="status-item">
+        <span class="status-icon">🍔</span>
+        <span class="bold-text">Açlık:</span> %71
+    </div>
+</div>
+
+<!-- Easy Butonu -->
+<button class="difficulty-button" onclick="selectDifficulty('Business')">Business Growth</button>
+
+<!-- Normal Butonu -->
+<button class="difficulty-button" onclick="selectDifficulty('Market')">Marketplace</button>
+
+<!-- Hard Butonu -->
+<button class="difficulty-button" onclick="selectDifficulty('Education')">Education</button>
+
+<button class="difficulty-button" onclick="selectDifficulty('Relation')">Relationships</button>
+
+<button class="difficulty-button" onclick="selectDifficulty('Stocks')">Stock Market</button>
+
+<script>
+    function selectDifficulty(difficulty) {
+        // Seçilen zorluk seviyesine göre farklı sayfalara yönlendirme yapılır
+        if (difficulty === 'Business') {
+            window.location.href = 'Business.html'; // Easy için gameMenu.html'e yönlendir
+        } else if (difficulty === 'Market') {
+            window.location.href = 'Market.html'; // Normal için gameMenu.html'e yönlendir
+        } else if (difficulty === 'Education') {
+            window.location.href = 'Education.html'; // Hard için gameMenu.html'e yönlendir
+        }
+     else if (difficulty === 'Relation') {
+            window.location.href = 'Relation.html'; // Normal için gameMenu.html'e yönlendir
+        } else if (difficulty === 'Stocks') {
+            window.location.href = 'Stocks.html'; // Hard için gameMenu.html'e yönlendir
+        }
+    }
+</script>
+
+</body>
+</html>
