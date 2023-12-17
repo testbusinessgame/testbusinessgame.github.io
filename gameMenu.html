@@ -83,15 +83,15 @@
 <div class="status-bar">
     <div class="status-item">
         <span class="status-icon">💵</span>
-        <span class="bold-text">Para:</span> $192.000
+        <span class="bold-text">Para:</span> <span id="money">10,000</span>
     </div>
     <div class="status-item">
         <span class="status-icon">❤️</span>
-        <span class="bold-text">Sağlık:</span> %87
+        <span class="bold-text">Sağlık:</span> <span id="health">72</span>%
     </div>
     <div class="status-item">
         <span class="status-icon">🍔</span>
-        <span class="bold-text">Açlık:</span> %71
+        <span class="bold-text">Açlık:</span> <span id="hunger">77</span>%
     </div>
 </div>
 
@@ -109,22 +109,62 @@
 <button class="difficulty-button" onclick="selectDifficulty('Stocks')">Stock Market</button>
 
 <script>
+    // Sayfa yüklendiğinde kontrol et ve varsa kayıtlı verileri yükle
+    window.onload = function () {
+        loadUserData();
+    };
+
+    // Kullanıcı verilerini yükle
+    function loadUserData() {
+        const money = localStorage.getItem('money');
+        const health = localStorage.getItem('health');
+        const hunger = localStorage.getItem('hunger');
+
+        // Eğer kayıtlı veri yoksa, varsayılan değerleri kullan
+        document.getElementById('money').innerText = money ? money : '10,000';
+        document.getElementById('health').innerText = health ? health : '72';
+        document.getElementById('hunger').innerText = hunger ? hunger : '77';
+    }
+
+    // Seçilen zorluk seviyesine göre farklı sayfalara yönlendirme yapılır
     function selectDifficulty(difficulty) {
-        // Seçilen zorluk seviyesine göre farklı sayfalara yönlendirme yapılır
         if (difficulty === 'Business') {
-            window.location.href = 'Business.html'; // Easy için gameMenu.html'e yönlendir
+            window.location.href = 'Business.html';
         } else if (difficulty === 'Market') {
-            window.location.href = 'Market.html'; // Normal için gameMenu.html'e yönlendir
+            window.location.href = 'Market.html';
         } else if (difficulty === 'Education') {
-            window.location.href = 'Education.html'; // Hard için gameMenu.html'e yönlendir
-        }
-     else if (difficulty === 'Relation') {
-            window.location.href = 'Relation.html'; // Normal için gameMenu.html'e yönlendir
+            window.location.href = 'Education.html';
+        } else if (difficulty === 'Relation') {
+            window.location.href = 'Relation.html';
         } else if (difficulty === 'Stocks') {
-            window.location.href = 'Stocks.html'; // Hard için gameMenu.html'e yönlendir
+            window.location.href = 'Stocks.html';
         }
     }
-</script>
 
+    // Her geçen dakikada sağlık ve açlık değerlerini düşüren fonksiyon
+    setInterval(function () {
+        updateHealthAndHunger();
+    }, 60000); // 60 saniye (1 dakika)
+
+    // Sağlık ve açlık değerlerini güncelle
+    function updateHealthAndHunger() {
+        let healthValue = parseInt(document.getElementById('health').innerText);
+        let hungerValue = parseInt(document.getElementById('hunger').innerText);
+
+        // Her 1 dakikada %2 sağlık azalt
+        healthValue -= 2;
+
+        // Her 1 dakikada %5 açlık azalt
+        hungerValue -= 5;
+
+        // Verileri güncelle
+        document.getElementById('health').innerText = healthValue < 0 ? '0' : healthValue;
+        document.getElementById('hunger').innerText = hungerValue < 0 ? '0' : hungerValue;
+
+        // Verileri yerel depolamada güncelle
+        localStorage.setItem('health', healthValue < 0 ? '0' : healthValue);
+        localStorage.setItem('hunger', hungerValue < 0 ? '0' : hungerValue);
+    }
+</script>
 </body>
 </html>
