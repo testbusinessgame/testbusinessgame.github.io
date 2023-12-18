@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sharehold Page</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap">
+    <style>
+        body {
+            background-image: url('backgroundMain.png');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            margin: 0;
+            padding: 20px;
+            font-family: 'Montserrat', sans-serif;
+            color: #ffffff;
+        }
+
+        .sharehold-button {
+            background-color: #ffffff;
+            color: #000000;
+            padding: 10px 20px; /* Buton içi boşluk küçültüldü */
+            border: none;
+            border-radius: 10px;
+            font-size: 14px; /* Yazı boyutu küçültüldü */
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            margin-top: 20px; /* Butonlar arası boşluk küçültüldü */
+            width: 70%; /* Genişlik yüzde olarak ayarlandı */
+            box-sizing: border-box;
+            font-family: 'Montserrat', sans-serif;
+        }
+
+        .sharehold-button:hover {
+            background-color: #004627;
+        }
+    </style>
+</head>
+<body>
+
+<!-- Sharehold Butonları -->
+<button class="sharehold-button" id="apple" onclick="goToPage('apple.html')">Apple</button>
+<button class="sharehold-button" id="google" onclick="goToPage('google.html')">Google</button>
+<button class="sharehold-button" id="amazon" onclick="goToPage('amazon.html')">Amazon</button>
+<button class="sharehold-button" id="microsoft" onclick="goToPage('microsoft.html')">Microsoft</button>
+<button class="sharehold-button" id="tesla" onclick="goToPage('tesla.html')">Tesla</button>
+<button class="sharehold-button" id="facebook" onclick="goToPage('facebook.html')">Facebook</button>
+<button class="sharehold-button" id="netflix" onclick="goToPage('netflix.html')">Netflix</button>
+<button class="sharehold-button" id="twitter" onclick="goToPage('twitter.html')">Twitter</button>
+<button class="sharehold-button" id="coca-cola" onclick="goToPage('coca-cola.html')">Coca-Cola</button>
+<button class="sharehold-button" id="walmart" onclick="goToPage('walmart.html')">Walmart</button>
+
+<script>
+    function goToPage(pageName) {
+        window.location.href = pageName;
+    }
+</script>
+
+</body>
+</html>

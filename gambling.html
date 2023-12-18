@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Crypto Page</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap">
+    <style>
+        body {
+            background-image: url('backgroundMain.png');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+            display: flex;
+            flex-direction: column; /* Butonları dikey olarak sırala */
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            margin: 0;
+            padding: 20px;
+            font-family: 'Montserrat', sans-serif;
+            color: #ffffff;
+        }
+
+        .crypto-button {
+            background-color: #ffffff;
+            color: #000000;
+            padding: 10px 20px; /* Buton içi boşluk küçültüldü */
+            border: none;
+            border-radius: 10px;
+            font-size: 14px; /* Yazı boyutu küçültüldü */
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            margin-top: 20px; /* Butonlar arası boşluk küçültüldü */
+            width: 70%; /* Genişlik yüzde olarak ayarlandı */
+            box-sizing: border-box;
+            font-family: 'Montserrat', sans-serif;
+        }
+
+        .crypto-button:hover {
+            background-color: #004627;
+        }
+    </style>
+</head>
+<body>
+
+<!-- Crypto Butonları -->
+<button class="crypto-button" id="bitcoin" onclick="goToPage('rulet.html')">Rulet</button>
+<button class="crypto-button" id="ethereum" onclick="goToPage('blackjack.html')">Blackjack</button>
+<button class="crypto-button" id="ripple" onclick="goToPage('slot.html')">Slot</button>
+<button class="crypto-button" id="litecoin" onclick="goToPage('case.html')">Case</button>
+<button class="crypto-button" id="cardano" onclick="goToPage('dingdong.html')">Ding-Dong</button>
+<button class="crypto-button" id="cardano" onclick="goToPage('gameMenu.html')">Main Menu</button>
+
+<script>
+    function goToPage(pageName) {
+        window.location.href = pageName;
+    }
+</script>
+
+</body>
+</html>

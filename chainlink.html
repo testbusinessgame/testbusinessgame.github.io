@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chainlink Page</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap">
+    <style>
+        body {
+            background-image: url('backgroundMain.png');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            margin: 0;
+            padding: 20px;
+            font-family: 'Montserrat', sans-serif;
+            color: #ffffff;
+        }
+
+        .crypto-container {
+            text-align: center;
+            padding: 20px;
+            border-radius: 10px;
+            background-color: rgba(255, 255, 255, 0.1);
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+        }
+
+        .crypto-icon {
+            font-size: 50px;
+            margin-bottom: 20px;
+        }
+
+        .crypto-price {
+            font-size: 24px;
+            font-weight: bold;
+            margin-bottom: 20px;
+        }
+
+        .action-button,
+        .back-button {
+            color: #fff;
+            padding: 15px 30px;
+            border: none;
+            border-radius: 8px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            margin-top: 20px;
+            width: 70%;
+            box-sizing: border-box;
+            font-family: 'Montserrat', sans-serif;
+        }
+
+        .action-button {
+            background-color: #4CAF50;
+        }
+
+        .action-button:hover {
+            background-color: #45a049;
+        }
+
+        .back-button {
+            background-color: #2196F3;
+            padding: 10px 20px;
+            font-size: 14px;
+            text-align: center;
+            text-decoration: none;
+            margin-top: 20px;
+        }
+
+        .back-button:hover {
+            background-color: #0b7dda;
+        }
+
+        .popup {
+            display: none;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            padding: 20px;
+            background-color: #001b45;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+            border-radius: 8px;
+            z-index: 1;
+        }
+
+        .popup-content {
+            text-align: center;
+        }
+
+        .close-popup {
+            margin-top: 20px;
+            padding: 10px 20px;
+            background-color: #4CAF50;
+            color: #fff;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+        }
+
+        .close-popup:hover {
+            background-color: #45a049;
+        }
+    </style>
+</head>
+<body>
+
+<div class="crypto-container">
+    <span class="crypto-icon">⛓️</span> <!-- Chainlink için farklı bir simge -->
+    <div class="crypto-price" id="chainlink-price">Loading...</div>
+    <button class="action-button" onclick="showPopup('chainlink')">Buy Chainlink</button>
+    <button class="back-button" onclick="goToPage('Stocks.html')">Back to Main Page</button>
+</div>
+
+<div class="popup" id="buyChainlinkPopup">
+    <div class="popup-content">
+        <p>Successfully bought <span id="purchaseAmountChainlink"></span> !</p>
+        <button class="close-popup" onclick="closePopup('chainlink')">Close</button>
+    </div>
+</div>
+
+<script>
+    const chainlinkData = {
+        price: 30 // Örneğin
+    };
+
+    window.onload = function() {
+        showChainlinkPrice();
+    };
+
+    function showChainlinkPrice() {
+        const chainlinkPriceElement = document.getElementById('chainlink-price');
+        chainlinkPriceElement.textContent = `$${chainlinkData.price.toFixed(2)}`;
+    }
+
+    function showPopup(crypto) {
+        const amount = prompt(`Enter the amount of ${crypto} to buy:`);
+        if (amount !== null && !isNaN(amount) && amount > 0) {
+            document.getElementById(`purchaseAmount${crypto.charAt(0).toUpperCase() + crypto.slice(1)}`).textContent = `${amount} ${crypto.charAt(0).toUpperCase() + crypto.slice(1)}`;
+            document.getElementById(`buy${crypto.charAt(0).toUpperCase() + crypto.slice(1)}Popup`).style.display = 'block';
+        } else {
+            alert("Invalid amount. Please enter a valid number.");
+        }
+    }
+
+    function closePopup(crypto) {
+        document.getElementById(`buy${crypto.charAt(0).toUpperCase() + crypto.slice(1)}Popup`).style.display = 'none';
+    }
+
+    function goToPage(pageName) {
+        window.location.href = pageName;
+    }
+</script>
+
+</body>
+</html>

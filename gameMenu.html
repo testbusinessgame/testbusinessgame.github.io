@@ -96,12 +96,13 @@
 
         /* Pop-up penceresi */
         .popup {
-            background-color: #ffffff;
+            background-color: #004d33;
             padding: 20px;
             border-radius: 10px;
             position: fixed;
             top: 50%;
             left: 50%;
+            width: 50%;
             transform: translate(-50%, -50%);
             z-index: 3000;
             display: none;
@@ -142,7 +143,7 @@
 <!-- Pop-up penceresi -->
 <div class="popup" id="popup">
     <span class="close-button" onclick="closePopup()">x</span>
-    <p>eat or die</p>
+    <p>go marketplace and eat something!</p>
 </div>
 
 <!-- Easy Butonu -->
@@ -158,11 +159,12 @@
 
 <button class="difficulty-button" onclick="selectDifficulty('Stocks')">Stock Market</button>
 
+<button class="difficulty-button" onclick="selectDifficulty('Gambling')">Gambling</button>
+
 <script>
     // Sayfa yüklendiğinde kontrol et ve varsa kayıtlı verileri yükle
     window.onload = function () {
         loadUserData();
-        startDecreaseMoney();
         startPopup();
     };
 
@@ -190,33 +192,9 @@
             window.location.href = 'Relation.html';
         } else if (difficulty === 'Stocks') {
             window.location.href = 'Stocks.html';
+        } else if (difficulty === 'Gambling') {
+            window.location.href = 'Gambling.html';
         }
-    }
-
-    // Her geçen dakikada sağlık ve açlık değerlerini düşüren fonksiyon
-    setInterval(function () {
-        updateHealthAndHunger();
-    }, 60000); // 60 saniye (1 dakika)
-
-    // Her 5 dakikada bir para miktarını azaltan fonksiyon
-    function startDecreaseMoney() {
-        setInterval(function () {
-            decreaseMoney();
-        }, 300000); // 300 saniye (5 dakika)
-    }
-
-    // Para miktarını azalt
-    function decreaseMoney() {
-        let moneyValue = parseInt(document.getElementById('money').innerText);
-
-        // Her 5 dakikada bir 10 dolar eksilt
-        moneyValue -= 10;
-
-        // Veriyi güncelle
-        document.getElementById('money').innerText = moneyValue < 0 ? '0' : moneyValue;
-
-        // Veriyi yerel depolamada güncelle
-        localStorage.setItem('money', moneyValue < 0 ? '0' : moneyValue);
     }
 
     // Açlık kontrolü ve pop-up başlatma
@@ -264,5 +242,6 @@
         document.getElementById('popup').style.display = 'none';
     }
 </script>
+
 </body>
 </html>

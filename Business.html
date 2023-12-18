@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>New Page</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap">
+    <style>
+        /* Genel Stiller */
+        body {
+            background-image: url('backgroundMain.png');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+            display: flex;
+            flex-direction: column; /* Butonları dikey olarak sırala */
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            margin: 0;
+            padding: 0;
+            font-family: 'Montserrat', sans-serif;
+            color: #ffffff;
+        }
+
+        /* Buton Stilleri */
+        .custom-button {
+            background-color: #ffffff; /* Buton rengi */
+            color: #000000; /* Yazı rengi */
+            padding: 15px 30px; /* Buton içi boşluk */
+            border: none; /* Kenarlık yok */
+            border-radius: 10px; /* Köşe yumuşatma */
+            font-size: 16px; /* Yazı boyutu */
+            cursor: pointer; /* İmleç tipi */
+            transition: background-color 0.3s ease; /* Animasyonlu geçiş */
+            margin-top: 20px;
+            width: 70%; /* Genişlik yüzde olarak ayarlandı */
+            box-sizing: border-box; /* Padding ve border'ı dahil etmek için */
+        }
+
+        .custom-button:hover {
+            background-color: #004627; /* Hover durumunda buton rengi */
+        }
+
+        /* Geri Dönme Butonu */
+        .back-button {
+            position: fixed; /* Sayfa üzerinde sabit konumlandırma */
+            top: 65px;
+            left: 300px;
+            background-color: #ffffff;
+            color: #000000;
+            padding: 10px 15px;
+            border: none;
+            border-radius: 5px;
+            font-size: 14px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .back-button:hover {
+            background-color: #004627;
+        }
+    </style>
+</head>
+<body>
+
+<!-- Geri Dönme Butonu -->
+<button class="back-button" onclick="goBack()">➠</button>
+
+<!-- 10 Farklı Buton -->
+<button class="custom-button" onclick="buttonClick(1)">Collect Garbage</button>
+<button class="custom-button" onclick="buttonClick(2)">Freelence</button>
+<button class="custom-button" onclick="buttonClick(3)">Jobs</button>
+<button class="custom-button" onclick="buttonClick(4)">Workplaces</button>
+<button class="custom-button" onclick="buttonClick(5)">Competitions</button>
+<button class="custom-button" onclick="buttonClick(6)">Company</button>
+<button class="custom-button" onclick="buttonClick(7)">Hidden Contacts</button>
+<button class="custom-button" onclick="buttonClick(8)">Big Boss Meeting</button>
+
+<script>
+    function goBack() {
+        window.location.href = 'gameMenu.html';
+    }
+
+    function buttonClick(buttonNumber) {
+        // Buraya tıklanan butonun işlevini ekleyebilirsiniz.
+        console.log("Button " + buttonNumber + " clicked.");
+    }
+</script>
+
+</body>
+</html>

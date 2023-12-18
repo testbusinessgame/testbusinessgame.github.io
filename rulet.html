@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Roulette Game</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap">
+    <style>
+        body {
+            background-image: url('backgroundMain.png');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            margin: 0;
+            padding: 20px;
+            font-family: 'Montserrat', sans-serif;
+            color: #ffffff;
+            text-align: center;
+        }
+
+        #game-container {
+            width: 100%;
+            max-width: 800px;
+            margin: 20px auto;
+            background-color: rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+            padding: 20px;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+            text-align: left;
+        }
+
+        #roulette-wheel {
+            width: 100%;
+            max-width: 400px;
+            margin: 20px auto;
+            background-color: #f0f0f0;
+            border-radius: 50%;
+            position: relative;
+            overflow: hidden;
+        }
+
+        #ball {
+            width: 20px;
+            height: 20px;
+            background-color: #ff0000;
+            border-radius: 50%;
+            position: absolute;
+            top: 50%;
+            left: -10%;
+            transition: left 5s ease-out; /* Dönüş süresi azaltıldı */
+        }
+
+        #bet-input {
+            width: calc(100% - 20px);
+            padding: 10px;
+            margin-bottom: 20px;
+            box-sizing: border-box;
+        }
+
+        #color-select {
+            width: calc(100% - 20px);
+            padding: 10px;
+            margin-bottom: 20px;
+            box-sizing: border-box;
+        }
+
+        #spin-button,
+        #main-menu-button {
+            padding: 15px 30px;
+            border: none;
+            border-radius: 8px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+
+        #spin-button {
+            background-color: #4CAF50;
+            color: #fff;
+            margin-right: 10px;
+        }
+
+        #main-menu-button {
+            background-color: #2196F3;
+            color: #fff;
+        }
+
+        #result {
+            margin-top: 20px;
+            font-size: 18px;
+            font-weight: bold;
+        }
+
+        #info-text {
+            margin-bottom: 20px;
+            font-size: 16px;
+            color: #ccc;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div id="game-container">
+        <div id="info-text">
+            <p>Welcome to the Roulette Game! Place your bet, select a color, spin the wheel, and test your luck.</p>
+        </div>
+
+        <div id="roulette-wheel">
+            <div id="ball"></div>
+        </div>
+
+        <input type="number" id="bet-input" placeholder="Enter your bet...">
+
+        <select id="color-select">
+            <option value="red">Red</option>
+            <option value="black">Black</option>
+            <option value="green">Green</option>
+        </select>
+
+        <button id="spin-button" onclick="spinWheel()">Spin</button>
+        <button id="main-menu-button" onclick="goToMainMenu()">Main Menu</button>
+        <div id="result"></div>
+    </div>
+
+    <script>
+        let ballElement, resultElement, isSpinning;
+
+        window.onload = function () {
+            ballElement = document.getElementById('ball');
+            resultElement = document.getElementById('result');
+        };
+
+        function spinWheel() {
+            if (isSpinning) return;
+
+            const betInput = document.getElementById('bet-input').value;
+            const colorSelect = document.getElementById('color-select');
+            const selectedColor = colorSelect.options[colorSelect.selectedIndex].value;
+
+            if (!betInput) {
+                alert('Please enter your bet.');
+                return;
+            }
+
+            const betAmount = parseFloat(betInput);
+
+            if (isNaN(betAmount) || betAmount <= 0) {
+                alert('Invalid bet amount. Please enter a valid number.');
+                return;
+            }
+
+            isSpinning = true;
+
+            // Disable spin button during the spin
+            document.getElementById('spin-button').disabled = true;
+
+            const randomNumber = Math.floor(Math.random() * 100);
+            let color;
+            if (randomNumber < 9) {
+                color = 'green';
+            } else if (randomNumber < 54.5 + 9) {
+                color = 'red';
+            } else {
+                color = 'black';
+            }
+
+            resultElement.textContent = `Result: ${color.charAt(0).toUpperCase() + color.slice(1)}`;
+
+            const targetPosition = (color === 'green') ? 10 : ((color === 'red') ? 2 : 6);
+            ballElement.style.left = `${targetPosition * 10}%`;
+
+            const isBetSuccessful = (selectedColor === color);
+
+            if (isBetSuccessful) {
+                resultElement.textContent += ` - You won ${betAmount * 2} coins!`;
+            } else {
+                resultElement.textContent += ' - You lost. Better luck next time.';
+            }
+
+            // Reset spinning after a delay
+            setTimeout(() => {
+                isSpinning = false;
+                document.getElementById('spin-button').disabled = false;
+            }, 5000);
+        }
+
+        function goToMainMenu() {
+            // Redirect to the main menu page
+            window.location.href = 'gameMenu.html';
+        }
+    </script>
+
+</body>
+
+</html>
